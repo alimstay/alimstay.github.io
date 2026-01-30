@@ -1,1 +1,1161 @@
-あ
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alim STAY 公式FAQ | 無人運営型ホテル</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #1a1a1a;
+            --color-dark-gray: #2d2d2d;
+            --color-white: #ffffff;
+            --color-light-gray: #f5f5f5;
+            --color-accent: #556B2F;
+            --color-accent-light: #6b8e23;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            background-attachment: fixed;
+            color: var(--color-black);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(85, 107, 47, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(85, 107, 47, 0.015) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            background: var(--color-white);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--color-black);
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 2px solid #e0e0e0;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            color: var(--color-black);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .lang-btn.active {
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-color: var(--color-accent);
+        }
+
+        .lang-separator {
+            color: #d0d0d0;
+            font-weight: 300;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .intro-section {
+            background: var(--color-white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--color-accent);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .intro-section h1 {
+            font-size: 28px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .intro-section p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .faq-section {
+            margin-bottom: 40px;
+        }
+
+        .faq-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-black);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--color-accent);
+            display: inline-block;
+        }
+
+        .faq-item {
+            background: var(--color-white);
+            margin-bottom: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 18px 20px;
+            background: var(--color-white);
+            border: none;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: var(--color-black);
+            border-left: 3px solid transparent;
+        }
+
+        .faq-question:hover {
+            background: #fafafa;
+            border-left-color: var(--color-accent);
+            padding-left: 17px;
+        }
+
+        .faq-question::after {
+            content: '▼';
+            font-size: 12px;
+            color: var(--color-accent);
+            transition: transform 0.3s ease;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 1000px;
+        }
+
+        .faq-answer-content {
+            padding: 0 20px 20px 20px;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 12px;
+        }
+
+        .faq-answer-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        strong {
+            color: var(--color-black);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-accent-light);
+            text-decoration: underline;
+        }
+
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            main {
+                padding: 20px 16px;
+            }
+
+            .intro-section {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+
+            .intro-section h1 {
+                font-size: 24px;
+            }
+
+            .intro-section p {
+                font-size: 14px;
+            }
+
+            .faq-section-title {
+                font-size: 18px;
+            }
+
+            .faq-question {
+                padding: 16px 16px;
+                font-size: 14px;
+            }
+
+            .faq-answer-content {
+                padding: 0 16px 16px 16px;
+                font-size: 14px;
+            }
+
+            .lang-btn {
+                padding: 5px 12px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro-section h1 {
+                font-size: 20px;
+            }
+
+            .faq-section-title {
+                font-size: 16px;
+            }
+
+            .faq-question {
+                font-size: 13px;
+                padding: 14px 14px;
+            }
+
+            .faq-answer-content {
+                font-size: 13px;
+                padding: 0 14px 14px 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Alim STAY</div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" onclick="switchLanguage('ja')">JA</button>
+                <span class="lang-separator">|</span>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
+                <span class="lang-separator">|</span>
+                <button class="lang-btn" data-lang="zh" onclick="switchLanguage('zh')">中文</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Japanese Content -->
+        <div class="language-content active" data-lang="ja">
+            <div class="intro-section">
+                <h1>Alim STAY 公式FAQ</h1>
+                <p>無人運営型ホテルのご利用に関するよくあるご質問にお答えします。ご不明な点がございましたら、<strong>LINE公式アカウント</strong>よりお気軽にお問い合わせください。</p>
+            </div>
+
+            <!-- Section 1: About Alim STAY -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">1. About Alim STAY</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Alim STAYはどのようなホテルですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Alim STAYは、<strong>フロントスタッフが常駐しない</strong>、新しいスタイルの無人運営型ホテルです。お客様ご自身のスマートフォンやタブレットを使って、スムーズにセルフチェックイン・チェックアウトを行っていただけます。この運営スタイルにより、お客様に<strong>よりリーズナブルで自由な滞在</strong>を提供しています。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">困った時はどうすれば良いですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>ご安心ください。滞在中のご質問やご不明点は、<strong>LINE公式アカウントを通じたチャットサポート</strong>にて承ります。専任のサポートチームが、お客様の滞在をリモートでサポートいたします。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Check-in / Check-out -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">2. Check-in / Check-out</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">チェックイン・チェックアウトの時間は何時ですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>チェックインは<strong>15:00から</strong>、チェックアウトは<strong>11:00まで</strong>です。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">チェックイン方法を教えてください。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>ご予約完了後にお送りする<strong>各OTAサイトのメッセージBOXに記載の「チェックインのご案内」メッセージ</strong>から、チェックイン手続きを行ってください。フロントでの手続きは不要です。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">15:00より早く到着した場合、ラウンジやチェックインできますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>チェックイン時間前にご到着いただいても、<strong>客室およびラウンジへはご入室いただけません</strong>。無人チェックインのご案内が到着後、ラウンジ・客室の両方をご利用いただけます。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">予定より早く到着した場合、荷物を預けられますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>申し訳ございませんが、当ホテルは無人運営のため、<strong>チェックイン前・チェックアウト後の荷物のお預かりは承っておりません</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">チェックアウト方法を教えてください。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>チェックアウト時刻（<strong>11:00</strong>）までに、お部屋からご退出いただくだけで完了です。特別な手続きは不要です。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Contact & Support -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">3. Contact & Support</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">問い合わせはどのようにすれば良いですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>LINE公式アカウント</strong>を通じて、チャットでご連絡ください。お客様の状況を正確に把握し、迅速に対応するため、<strong>チャットでのサポートを原則</strong>としております。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">電話での問い合わせは可能ですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>申し訳ございませんが、<strong>原則としてお電話での対応は行っておりません</strong>。無人運営によるコスト削減分を宿泊料金へ還元するため、サポート体制をチャットに集約しております。なお、電話でのサポート経路もご用意しておりますが、こちらは<strong>緊急時の対応に限った補助的な窓口</strong>となります。そのため、営業時間内であっても、スタッフが一時的に電話に出られない場合がございます。円滑なご案内のため、原則としてチャットでのお問い合わせにご協力いただきますよう、何卒ご理解をお願いいたします。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">サポート対応時間は何時までですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>チャットサポートは<strong>10:00から19:00まで</strong>対応しております。時間外の緊急事態については、セクション7「Trouble / Emergency」をご確認ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Wi-Fi & Facilities -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">4. Wi-Fi & Facilities</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Wi-Fiは利用できますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>はい、全室で<strong>無料の高速Wi-Fi</strong>をご利用いただけます。SSIDとパスワードは、<strong>チェックインのご案内</strong>をご確認ください。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">ランドリー設備はありますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>申し訳ございませんが、館内に<strong>共用のランドリー設備はございません</strong>。お近くのコインランドリーをご利用ください。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">喫煙できる場所はありますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>当ホテルは<strong>全館禁煙</strong>です。電子タバコ、加熱式タバコを含め、客室内および共用部での喫煙は<strong>固くお断りいたします</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Amenities & Cleaning -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">5. Amenities & Cleaning</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">どのようなアメニティがありますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>歯ブラシ、歯磨き粉、カミソリ、コットン、綿棒、使い捨てスリッパ、環境に配慮したリユースサンダル、シャンプー、コンディショナー、ボディソープ、バスタオル、フェイスタオル</strong>をご用意しております。</p>
+                            <p>※ タオルは<strong>1泊につきお一人様フェイスタオル・バスタオル各1枚</strong>のご用意となります。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">滞在中の清掃はありますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>連泊の場合、清掃は<strong>エコ清掃対応</strong>となります。<strong>4泊目以降に新しいシーツへ交換</strong>を行います。</p>
+                            <p>※ <strong>3泊目まではスタッフの入室は行いません</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">ゴミはどのように処理すれば良いですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>お部屋またはラウンジに設置されたゴミ箱をご利用ください。<strong>分別にご協力をお願いいたします</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: House Rules -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">6. House Rules</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">宿泊者以外の入室は可能ですか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>ご宿泊者様以外の入室は固くお断りしております</strong>。ご予約時の人数を超えての入室が確認された場合、追加料金を請求させていただく場合がございます。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">騒音に関する注意点はありますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>当ホテルは快適な滞在を重視しております。<strong>21:00以降は、特に大きな声での会話や、テレビ・音楽の音量にご配慮ください</strong>。近隣住民や他のお客様にご迷惑となる行為はお控えください。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">ペットと一緒に宿泊できますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>申し訳ございませんが、<strong>ペットの同伴はできません</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Trouble / Emergency -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">7. Trouble / Emergency</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">鍵が開きません。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>一時的な本体のエラーの可能性があります。一度施錠ボタン【🔒】を押して暗証番号を再入力してください。それでも解決しない場合は<strong>電話サポート</strong>をご利用ください。📞<a href="https://lin.ee/lcaWS5z" target="_blank">こちら</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">設備が故障した、水漏れなどのトラブルが発生しました。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>すぐに<strong>電話サポート</strong>にご連絡ください。状況を確認し、迅速に修理の手配または代替の対応を行います。📞<a href="https://lin.ee/lcaWS5z" target="_blank">こちら</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">火災や急病などの緊急事態が発生しました。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>人命に関わる緊急事態の場合は、迷わず119番（消防・救急）または110番（警察）に直接通報してください</strong>。その後、電話にもご連絡いただけると、リモートで状況把握と関係機関への連携をサポートできます。📞<a href="https://lin.ee/lcaWS5z" target="_blank">こちら</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Parking & Access -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">8. Parking & Access</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">駐車場はありますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>申し訳ございませんが、<strong>専用の駐車場はございません</strong>。近隣の<strong>松原公園駐車場</strong>をご利用ください。</p>
+                            <p><strong>■駐車場</strong><br>
+松原公園駐車場(公共)<br>
+・1日(0:00起算)<strong>1200円</strong><br>
+・2時間まで出し入れ無料<br>
+→22:01以降の駐車は翌日1200円 (1日間)<br>
+→〜21:59までの駐車は2400円(2日間)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">最寄りの交通機関からのアクセスを教えてください。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>伊豆箱根鉄道「修善寺駅」</strong>より東海バス「松崎」行きに乗車、約50分。<strong>「土肥金山」下車、徒歩3分</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Booking / Cancellation -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">9. Booking / Cancellation</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">予約の変更・キャンセルはどこで行えますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>ご予約いただいた<strong>OTA（オンライン旅行会社）または予約サイト</strong>を通じてお手続きください。当ホテルでは<strong>直接変更・キャンセルを承ることができません</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">領収書は発行できますか？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>領収書は、ご予約時にご利用いただいた<strong>OTAまたは予約サイト</strong>から発行されます。そちらをご確認ください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- English Content -->
+        <div class="language-content" data-lang="en">
+            <div class="intro-section">
+                <h1>Alim STAY Official FAQ</h1>
+                <p>We answer frequently asked questions about staying at our unmanned hotel. If you have any questions or concerns, please feel free to contact us via our official <strong>LINE account</strong>.</p>
+            </div>
+
+            <!-- Section 1: About Alim STAY -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">1. About Alim STAY</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">What kind of hotel is Alim STAY?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Alim STAY is a new style of <strong>unmanned hotel</strong> with <strong>no permanent front desk staff</strong>. You can smoothly complete self-check-in and check-out using your own smartphone or tablet. This operating style allows us to offer you a <strong>more reasonable and flexible stay</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">What should I do if I have a problem?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Please don't worry. For any questions or concerns during your stay, we offer <strong>chat support via our official LINE account</strong>. Our dedicated support team will assist your stay remotely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Check-in / Check-out -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">2. Check-in / Check-out</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">What are the check-in and check-out times?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Check-in is from <strong>3:00 PM</strong>, and check-out is until <strong>11:00 AM</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">How do I check in?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Please complete the check-in procedure using the <strong>"Check-in Guide" message in the message box of each OTA site</strong> sent to you after booking is confirmed. No procedure is required at a front desk.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Can I access the lounge or check in if I arrive before 3:00 PM?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>If you arrive before check-in time, <strong>you will not be able to enter the guest rooms or lounge</strong>. You will be able to use both the lounge and guest room once you receive the unmanned check-in guide.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Can I leave my luggage if I arrive early?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We apologize, but as an unmanned hotel, <strong>we cannot store luggage before check-in or after check-out</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">How do I check out?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Simply leave your room by the check-out time (<strong>11:00 AM</strong>). No special procedures are required.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Contact & Support -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">3. Contact & Support</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">How should I contact you?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Please contact us via chat through our <strong>official LINE account</strong>. We prioritize <strong>chat support</strong> to accurately understand your situation and respond promptly.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Can I contact you by phone?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We apologize, but <strong>we generally do not provide phone support</strong>. We have consolidated our support system to chat to pass on the cost savings from unmanned operations to our guests' accommodation rates. However, we do have a phone support channel available, which is <strong>a supplementary service limited to emergency situations</strong>. Therefore, even during business hours, staff may not be able to answer the phone immediately. We appreciate your cooperation in using chat for inquiries as much as possible.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">What are the support hours?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Chat support is available from <strong>10:00 AM to 7:00 PM</strong>. For emergencies outside these hours, please refer to Section 7 "Trouble / Emergency."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Wi-Fi & Facilities -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">4. Wi-Fi & Facilities</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Is Wi-Fi available?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Yes, <strong>free high-speed Wi-Fi</strong> is available in all rooms. Please check the <strong>check-in guide</strong> for the SSID and password.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Are there laundry facilities?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We apologize, but there are <strong>no shared laundry facilities in the building</strong>. Please use a nearby coin laundry.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Is there a smoking area?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>The hotel is <strong>entirely non-smoking</strong>. Smoking, including e-cigarettes and heated tobacco products, is <strong>strictly prohibited</strong> in guest rooms and common areas.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Amenities & Cleaning -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">5. Amenities & Cleaning</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">What amenities are provided?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We provide <strong>toothbrush, toothpaste, razor, cotton, cotton swabs, disposable slippers, eco-friendly reusable sandals, shampoo, conditioner, body soap, bath towel, and face towel</strong>.</p>
+                            <p>※ Towels are provided <strong>one face towel and one bath towel per person per night</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Is there cleaning service during my stay?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>For multi-night stays, cleaning is provided as <strong>eco-cleaning service</strong>. <strong>Fresh sheets are provided from the 4th night onwards</strong>.</p>
+                            <p>※ <strong>Staff will not enter the room until the 3rd night</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">How should I dispose of trash?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Please use the trash bins in your room or the lounge. We appreciate your cooperation in <strong>sorting your trash</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: House Rules -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">6. House Rules</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Are non-guests allowed in the room?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>Non-guests are strictly prohibited from entering</strong>. If entry by more than the number of people booked is confirmed, additional charges may be applied.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Are there any rules regarding noise?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We prioritize comfortable stays. <strong>After 9:00 PM, please be especially considerate of loud conversations and the volume of televisions and music</strong>. Please refrain from any behavior that may disturb neighboring residents or other guests.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Can I stay with my pet?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We apologize, but <strong>pets are not allowed</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Trouble / Emergency -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">7. Trouble / Emergency</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">The door won't open.</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>There may be a temporary error with the device. Try pressing the lock button 【🔒】 and re-entering your passcode. If this doesn't resolve the issue, please use <strong>phone support</strong>. 📞<a href="https://lin.ee/lcaWS5z" target="_blank">Here</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">A facility is broken, or a problem like a water leak has occurred.</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Please contact <strong>phone support</strong> immediately. We will assess the situation and promptly arrange repairs or provide an alternative solution. 📞<a href="https://lin.ee/lcaWS5z" target="_blank">Here</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">An emergency such as a fire or sudden illness has occurred.</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>In case of a life-threatening emergency, please immediately call 119 (Fire/Ambulance) or 110 (Police)</strong>. You can also contact us afterward, and we can assist remotely with situation assessment and coordination with relevant authorities. 📞<a href="https://lin.ee/lcaWS5z" target="_blank">Here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Parking & Access -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">8. Parking & Access</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Is there a parking lot?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>We apologize, but there is <strong>no dedicated parking lot</strong>. Please use the nearby <strong>Matsubara Park Parking Lot</strong>.</p>
+                            <p><strong>■Parking Lot</strong><br>
+Matsubara Park Parking Lot (Public)<br>
+・<strong>1,200 yen per day</strong> (calculated from 0:00)<br>
+・Free entry and exit for up to 2 hours<br>
+→Parking after 22:01 is charged 1,200 yen for the next day (1 day)<br>
+→Parking until 21:59 is charged 2,400 yen (2 days)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">How do I get there from the nearest public transport?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>From <strong>Izu Hakone Railway "Shuzenji Station,"</strong> take the Tokai Bus heading to "Matsuzaki" for approximately 50 minutes. <strong>Get off at "Tohi Kinzan" and walk for 3 minutes</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Booking / Cancellation -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">9. Booking / Cancellation</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Where can I change or cancel my reservation?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Please make changes or cancellations through the <strong>OTA (Online Travel Agency) or booking site</strong> where you made your reservation. We <strong>cannot process changes or cancellations directly</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Can I get a receipt?</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Receipts are issued by the <strong>OTA or booking site</strong> you used when making your reservation. Please check with them.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chinese Content -->
+        <div class="language-content" data-lang="zh">
+            <div class="intro-section">
+                <h1>Alim STAY 官方常见问题 (FAQ)</h1>
+                <p>我们回答有关入住我们无人运营酒店的常见问题。如有任何疑问或顾虑，请随时通过我们的官方<strong>LINE账户</strong>与我们联系。</p>
+            </div>
+
+            <!-- Section 1: About Alim STAY -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">1. 关于Alim STAY</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">Alim STAY 是一家什么样的酒店？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Alim STAY是一家<strong>没有常驻前台员工</strong>的新型<strong>无人运营酒店</strong>。您可以使用自己的智能手机或平板电脑顺利完成自助入住和退房。这种运营方式使我们能够为您提供<strong>更经济实惠和自由的住宿体验</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">遇到问题时该怎么办？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请放心。如有任何疑问或问题，我们通过<strong>官方LINE账户提供聊天支持</strong>。我们的专业支持团队将远程协助您的住宿。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Check-in / Check-out -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">2. 入住/退房</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">入住和退房时间是几点？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>入住时间为<strong>下午3:00</strong>，退房时间至<strong>上午11:00</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">如何办理入住？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请使用预订确认后发送给您的<strong>各OTA网站消息框中的"入住指南"消息</strong>完成入住手续。无需在前台办理。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">如果我在下午3:00之前到达，可以进入休息室或办理入住吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>如果您在入住时间前到达，<strong>您将无法进入客房或休息室</strong>。收到无人入住指南后，您可以使用休息室和客房。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">如果我提前到达，可以寄存行李吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>抱歉，由于我们是无人运营酒店，<strong>我们不接受入住前或退房后的行李寄存</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">如何办理退房？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>只需在退房时间（<strong>上午11:00</strong>）前离开您的房间即可。无需特殊手续。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Contact & Support -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">3. 联系和支持</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">我应该如何联系你们？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请通过我们的<strong>官方LINE账户</strong>通过聊天与我们联系。我们优先提供<strong>聊天支持</strong>以准确了解您的情况并快速响应。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">可以通过电话联系吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>抱歉，<strong>我们通常不提供电话支持</strong>。我们已将支持系统集中在聊天上，以便将无人运营的成本节省转嫁给客人的住宿费用。但是，我们确实提供电话支持渠道，这是<strong>仅限于紧急情况的辅助服务</strong>。因此，即使在营业时间内，员工也可能无法立即接听电话。我们感谢您尽可能多地使用聊天进行咨询。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">支持服务时间是几点到几点？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>聊天支持时间为<strong>上午10:00至晚上7:00</strong>。如有紧急情况发生在这些时间之外，请参考第7部分"故障/紧急情况"。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Wi-Fi & Facilities -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">4. Wi-Fi和设施</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">可以使用Wi-Fi吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>是的，所有房间都提供<strong>免费高速Wi-Fi</strong>。请查看<strong>入住指南</strong>了解SSID和密码。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">有洗衣设施吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>抱歉，建筑内<strong>没有共用洗衣设施</strong>。请使用附近的自助洗衣店。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">有吸烟区吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>酒店<strong>全面禁烟</strong>。包括电子烟和加热烟草产品在内的吸烟在客房和公共区域<strong>严格禁止</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Amenities & Cleaning -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">5. 便利设施和清洁</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">提供了哪些便利设施？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>我们提供<strong>牙刷、牙膏、剃须刀、化妆棉、棉签、一次性拖鞋、环保可重复使用的拖鞋、洗发水、护发素、沐浴露、浴巾和面巾</strong>。</p>
+                            <p>※ 毛巾按<strong>每人每晚一条面巾和一条浴巾</strong>提供。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">住宿期间有清洁服务吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>对于多晚住宿，清洁采用<strong>生态清洁服务</strong>。<strong>从第4晚起提供新床单</strong>。</p>
+                            <p>※ <strong>第3晚之前员工不进入房间</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">垃圾应该如何处理？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请使用房间或休息室内的垃圾箱。我们感谢您<strong>配合垃圾分类</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: House Rules -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">6. 住宿规则</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">非住客可以进入房间吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>严格禁止非住客进入</strong>。如果发现超过预订人数的人员进入，可能会收取额外费用。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">关于噪音有什么注意事项吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>我们优先考虑舒适的住宿体验。<strong>晚上9:00以后，请特别注意大声交谈和电视、音乐的音量</strong>。请避免任何可能打扰邻近居民或其他客人的行为。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">可以携带宠物入住吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>抱歉，<strong>不允许携带宠物</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Trouble / Emergency -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">7. 故障/紧急情况</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">门打不开。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>设备可能出现临时错误。尝试按锁定按钮【🔒】并重新输入您的密码。如果问题仍未解决，请使用<strong>电话支持</strong>。📞<a href="https://lin.ee/lcaWS5z" target="_blank">点击这里</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">设施发生故障，或发生漏水等问题。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请立即联系<strong>电话支持</strong>。我们将评估情况并迅速安排维修或提供替代解决方案。📞<a href="https://lin.ee/lcaWS5z" target="_blank">点击这里</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">发生火灾或突发疾病等紧急情况。</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p><strong>在生命危险的紧急情况下，请立即拨打119（消防/救护车）或110（警察）</strong>。之后您也可以与我们联系，我们可以远程协助情况评估和与相关部门的协调。📞<a href="https://lin.ee/lcaWS5z" target="_blank">点击这里</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Parking & Access -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">8. 停车场和交通</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">有停车场吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>抱歉，<strong>没有专用停车场</strong>。请使用附近的<strong>松原公园停车场</strong>。</p>
+                            <p><strong>■停车场</strong><br>
+松原公园停车场（公共）<br>
+・每天<strong>1200日元</strong>（从0:00计算）<br>
+・2小时内出入免费<br>
+→22:01以后停车，次日收费1200日元（1天）<br>
+→至21:59停车，收费2400日元（2天）</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">如何从最近的公共交通工具到达？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>从<strong>伊豆箱根铁路"修善寺站"</strong>乘坐东海巴士"松崎"方向，约50分钟。<strong>在"土肥金山"下车，步行3分钟</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Booking / Cancellation -->
+            <div class="faq-section">
+                <h2 class="faq-section-title">9. 预订/取消</h2>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">我在哪里可以更改或取消预订？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>请通过您进行预订的<strong>OTA（在线旅行社）或预订网站</strong>进行更改或取消。我们<strong>无法直接处理更改或取消</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFAQ(this)">可以开具收据吗？</button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>收据由您进行预订时使用的<strong>OTA或预订网站</strong>开具。请与他们联系。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleFAQ(button) {
+            const item = button.parentElement;
+            item.classList.toggle('active');
+        }
+
+        function switchLanguage(lang) {
+            // Hide all language contents
+            document.querySelectorAll('.language-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected language
+            document.querySelector(`.language-content[data-lang="${lang}"]`).classList.add('active');
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+        }
+    </script>
+</body>
+</html>
