@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alim STAY | Access & Parking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #1a1a1a;
+            --color-dark-gray: #2d2d2d;
+            --color-white: #ffffff;
+            --color-light-gray: #f5f5f5;
+            --color-accent: #556B2F;
+            --color-accent-light: #6b8e23;
+            --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+            background-attachment: fixed;
+            color: var(--color-black);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(85, 107, 47, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(85, 107, 47, 0.015) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        header {
+            background: var(--color-white);
+            border-bottom: 1px solid #e0e0e0;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--color-black);
+        }
+
+        .lang-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 2px solid #e0e0e0;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            color: var(--color-black);
+        }
+
+        .lang-btn:hover {
+            border-color: var(--color-accent);
+            color: var(--color-accent);
+        }
+
+        .lang-btn.active {
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-color: var(--color-accent);
+        }
+
+        .lang-separator {
+            color: #d0d0d0;
+            font-weight: 300;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--color-black);
+            letter-spacing: -0.5px;
+        }
+
+        /* Quick Info Section */
+        .quick-info {
+            background: var(--color-white);
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--color-accent);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .quick-info h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-black);
+        }
+
+        .info-block {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .copy-button, .map-button {
+            display: inline-block;
+            background: var(--color-dark-gray);
+            color: var(--color-white);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            margin-right: 8px;
+            margin-top: 8px;
+        }
+
+        .copy-button:hover, .map-button:hover {
+            background: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .map-button {
+            background: var(--color-accent);
+        }
+
+        .map-button:hover {
+            background: var(--color-accent-light);
+        }
+
+        /* Accordion Sections */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-black);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--color-accent);
+            display: inline-block;
+        }
+
+        .accordion-item {
+            background: var(--color-white);
+            margin-bottom: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 18px 20px;
+            background: var(--color-white);
+            border: none;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            color: var(--color-black);
+            border-left: 3px solid transparent;
+        }
+
+        .accordion-header:hover {
+            background: #fafafa;
+            border-left-color: var(--color-accent);
+            padding-left: 17px;
+        }
+
+        .accordion-header::after {
+            content: '▼';
+            font-size: 12px;
+            color: var(--color-accent);
+            transition: transform 0.3s ease;
+            margin-left: 12px;
+            flex-shrink: 0;
+        }
+
+        .accordion-item.active .accordion-header::after {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 2000px;
+        }
+
+        .accordion-body {
+            padding: 0 20px 20px 20px;
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .accordion-body p {
+            margin-bottom: 12px;
+        }
+
+        .accordion-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+
+        .info-table tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .info-table td {
+            padding: 12px 0;
+        }
+
+        .info-table td:first-child {
+            font-weight: 600;
+            color: var(--color-black);
+            width: 30%;
+            padding-right: 15px;
+        }
+
+        .info-table td:last-child {
+            color: #555;
+        }
+
+        strong {
+            color: var(--color-black);
+            font-weight: 700;
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--color-accent-light);
+            text-decoration: underline;
+        }
+
+        .language-content {
+            display: none;
+        }
+
+        .language-content.active {
+            display: block;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            main {
+                padding: 20px 16px;
+            }
+
+            .page-title {
+                font-size: 24px;
+            }
+
+            .quick-info {
+                padding: 20px;
+                margin-bottom: 30px;
+            }
+
+            .quick-info h2 {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .accordion-header {
+                padding: 16px 16px;
+                font-size: 14px;
+            }
+
+            .accordion-body {
+                padding: 0 16px 16px 16px;
+                font-size: 14px;
+            }
+
+            .lang-btn {
+                padding: 5px 12px;
+                font-size: 12px;
+            }
+
+            .copy-button, .map-button {
+                padding: 7px 14px;
+                font-size: 12px;
+                margin-right: 6px;
+            }
+
+            .info-table {
+                font-size: 13px;
+            }
+
+            .info-table td {
+                padding: 10px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 20px;
+            }
+
+            .quick-info {
+                padding: 16px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .accordion-header {
+                font-size: 13px;
+                padding: 14px 14px;
+            }
+
+            .accordion-body {
+                font-size: 13px;
+                padding: 0 14px 14px 14px;
+            }
+
+            .copy-button, .map-button {
+                display: block;
+                width: 100%;
+                margin-bottom: 8px;
+                margin-right: 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">Alim STAY</div>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="ja" onclick="switchLanguage('ja')">JA</button>
+                <span class="lang-separator">|</span>
+                <button class="lang-btn" data-lang="en" onclick="switchLanguage('en')">EN</button>
+                <span class="lang-separator">|</span>
+                <button class="lang-btn" data-lang="zh" onclick="switchLanguage('zh')">中文</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Japanese Content -->
+        <div class="language-content active" data-lang="ja">
+            <h1 class="page-title">Access & Parking</h1>
+
+            <!-- Quick Info -->
+            <div class="quick-info">
+                <h2>クイック情報</h2>
+                
+                <div class="info-block">
+                    <div class="info-label">住所</div>
+                    <div class="info-content">
+                        〒410-3302 静岡県伊豆市土肥2789<br>
+                        <strong>AlimSTAY IZU</strong>
+                    </div>
+                    <button class="copy-button" onclick="copyToClipboard('〒410-3302 静岡県伊豆市土肥2789 AlimSTAY IZU')">住所をコピー</button>
+                    <a href="https://maps.app.goo.gl/PLACEHOLDER_URL" target="_blank" class="map-button">Google Mapsで開く</a>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">目印</div>
+                    <div class="info-content">
+                        建物外観は<strong>ダークグレーのモダンなデザイン</strong>です。隣接する<strong>松原公園</strong>が目印です。
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">チェックイン</div>
+                    <div class="info-content">
+                        チェックインは<strong>当日15:00まで</strong>に、各OTAのメッセージBOXに届く「チェックインのお知らせ」からお手続きください。
+                    </div>
+                    <a href="faq.html" class="map-button">FAQページへ</a>
+                </div>
+            </div>
+
+            <!-- Getting Here Section -->
+            <div class="section">
+                <h2 class="section-title">アクセス方法</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">お車でお越しの場合</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>ナビ入力の注意</strong><br>
+                            住所（静岡県伊豆市土肥2789）または電話番号（0558-98-XXXX）で検索してください。<strong>以前の物件名「わくだや」</strong>で検索すると、ピンがずれる可能性があります。</p>
+
+                            <p><strong>高速道路</strong><br>
+                            新東名高速道路「長泉沼津IC」または東名高速道路「沼津IC」から伊豆縦貫道を経由し、国道136号線で約90分。</p>
+
+                            <p><strong>所要時間</strong><br>
+                            東京方面から約3時間30分（休憩含まず）。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">公共交通機関でお越しの場合</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>最寄り駅</strong><br>
+                            伊豆箱根鉄道「修善寺駅」</p>
+
+                            <p><strong>バス</strong><br>
+                            修善寺駅より東海バス「松崎」行きに乗車（約50分）。</p>
+
+                            <p><strong>下車</strong><br>
+                            <strong>「土肥金山」</strong>バス停で下車。バス停からホテルまで<strong>徒歩約3分</strong>です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">タクシーでお越しの場合</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>運転手に見せる文</strong></p>
+                            <p style="background: #f5f5f5; padding: 12px; border-radius: 4px; font-family: monospace; font-size: 14px;">
+                                「静岡県伊豆市土肥2789の<strong>AlimSTAY IZU</strong>までお願いします。以前の旅館<strong>わくだや</strong>の跡地です。」
+                            </p>
+                            <button class="copy-button" onclick="copyToClipboard('静岡県伊豆市土肥2789のAlimSTAY IZUまでお願いします。以前の旅館わくだやの跡地です。')">テキストをコピー</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parking Guide Section -->
+            <div class="section">
+                <h2 class="section-title">駐車場ガイド</h2>
+
+                <div class="accordion-item active">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">松原公園駐車場（公共）</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>駐車場について</strong><br>
+                            当ホテルは<strong>専用駐車場がございません</strong>。近隣の<strong>松原公園駐車場（公共）</strong>をご利用ください。</p>
+
+                            <p><strong>料金体系</strong></p>
+                            <table class="info-table">
+                                <tr>
+                                    <td>1日（0:00起算）</td>
+                                    <td><strong>1,200円</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>2時間まで出し入れ</td>
+                                    <td>無料</td>
+                                </tr>
+                                <tr>
+                                    <td>22:01以降の駐車</td>
+                                    <td>翌日1,200円が加算</td>
+                                </tr>
+                                <tr>
+                                    <td>〜21:59までの駐車</td>
+                                    <td>2日分2,400円の場合あり</td>
+                                </tr>
+                            </table>
+
+                            <p><strong>駐車場の場所</strong><br>
+                            ホテル正面玄関から<strong>約50m</strong>、国道136号線を挟んで<strong>向かい側</strong>に位置します。</p>
+
+                            <p><strong>台数・サイズ制限</strong><br>
+                            普通車約50台。サイズ制限は特にございません。</p>
+
+                            <p><strong>停め方</strong><br>
+                            駐車場内の<strong>区画線内に沿って</strong>駐車してください。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrival Tips Section -->
+            <div class="section">
+                <h2 class="section-title">到着時のヒント</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">入口の説明</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>建物正面の<strong>ダークグレーの壁</strong>に設置された<strong>キーボックス</strong>が入口です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">迷った時の対応</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>建物周辺にスタッフはおりません。迷われた場合は、以下の情報を添えてチャットサポートにご連絡ください。</p>
+                            <p style="margin-top: 12px;">
+                                <strong>・現在地のスクリーンショット</strong><br>
+                                <strong>・周辺の写真</strong><br>
+                                <strong>・Google Mapsのリンク</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section">
+                <h2 class="section-title">サポート</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">連絡方法</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>チャットサポート</strong><br>
+                            LINE公式アカウントによるチャットサポートをご利用ください。スムーズなご案内のため、チャットでのお問い合わせをお願いいたします。</p>
+
+                            <p style="margin-top: 12px;"><strong>電話について</strong><br>
+                            緊急時を除き、原則として電話対応は行っておりません。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- English Content -->
+        <div class="language-content" data-lang="en">
+            <h1 class="page-title">Access & Parking</h1>
+
+            <!-- Quick Info -->
+            <div class="quick-info">
+                <h2>Quick Info</h2>
+                
+                <div class="info-block">
+                    <div class="info-label">Address</div>
+                    <div class="info-content">
+                        2789 Toi, Izu, Shizuoka 410-3302, Japan<br>
+                        <strong>AlimSTAY IZU</strong>
+                    </div>
+                    <button class="copy-button" onclick="copyToClipboard('2789 Toi, Izu, Shizuoka 410-3302, Japan AlimSTAY IZU')">Copy Address</button>
+                    <a href="https://maps.app.goo.gl/PLACEHOLDER_URL" target="_blank" class="map-button">Open in Google Maps</a>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">Landmark</div>
+                    <div class="info-content">
+                        The building exterior is a <strong>modern dark gray design</strong>. The adjacent <strong>Matsubara Park</strong> is a key landmark.
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">Check-in</div>
+                    <div class="info-content">
+                        Please complete check-in using the "Check-in Notice" sent to your OTA message box <strong>by 3:00 PM on the day of arrival</strong>.
+                    </div>
+                    <a href="faq.html" class="map-button">Go to FAQ Page</a>
+                </div>
+            </div>
+
+            <!-- Getting Here Section -->
+            <div class="section">
+                <h2 class="section-title">Getting Here</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">By Car</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>Navigation Note</strong><br>
+                            Search by address (2789 Toi, Izu, Shizuoka) or phone number (0558-98-XXXX). Searching by the <strong>former property name "Wakudaya"</strong> may lead to an incorrect location.</p>
+
+                            <p><strong>Expressway</strong><br>
+                            From Shin-Tomei Expressway "Nagaizumi-Numazu IC" or Tomei Expressway "Numazu IC," take the Izu Jukan Expressway and Route 136 for about 90 minutes.</p>
+
+                            <p><strong>Duration</strong><br>
+                            Approximately 3 hours 30 minutes from Tokyo area (excluding breaks).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">By Public Transport</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>Nearest Station</strong><br>
+                            Izu Hakone Railway "Shuzenji Station"</p>
+
+                            <p><strong>Bus</strong><br>
+                            Take the Tokai Bus bound for "Matsuzaki" from Shuzenji Station (approx. 50 minutes).</p>
+
+                            <p><strong>Alight</strong><br>
+                            Get off at the <strong>"Tohi Kinzan"</strong> bus stop. The hotel is about a <strong>3-minute walk</strong> from the bus stop.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">By Taxi</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>For the Driver</strong></p>
+                            <p style="background: #f5f5f5; padding: 12px; border-radius: 4px; font-family: monospace; font-size: 14px;">
+                                "Please take me to <strong>AlimSTAY IZU</strong> at 2789 Toi, Izu, Shizuoka. It is the former site of the inn <strong>Wakudaya</strong>."
+                            </p>
+                            <button class="copy-button" onclick="copyToClipboard('Please take me to AlimSTAY IZU at 2789 Toi, Izu, Shizuoka. It is the former site of the inn Wakudaya.')">Copy Text</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parking Guide Section -->
+            <div class="section">
+                <h2 class="section-title">Parking Guide</h2>
+
+                <div class="accordion-item active">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">Matsubara Park Parking Lot (Public)</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>About Parking</strong><br>
+                            We do <strong>not have a dedicated parking lot</strong>. Please use the nearby <strong>Matsubara Park Parking Lot (Public)</strong>.</p>
+
+                            <p><strong>Fee Structure</strong></p>
+                            <table class="info-table">
+                                <tr>
+                                    <td>1 day (from 0:00)</td>
+                                    <td><strong>¥1,200</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Free entry/exit up to 2 hours</td>
+                                    <td>Free</td>
+                                </tr>
+                                <tr>
+                                    <td>Parking after 22:01</td>
+                                    <td>Next day ¥1,200 added</td>
+                                </tr>
+                                <tr>
+                                    <td>Parking until 21:59</td>
+                                    <td>2-day charge ¥2,400 possible</td>
+                                </tr>
+                            </table>
+
+                            <p><strong>Parking Location</strong><br>
+                            Located <strong>about 50m</strong> from the hotel's main entrance, <strong>across Route 136</strong>.</p>
+
+                            <p><strong>Capacity/Size Limit</strong><br>
+                            Approx. 50 standard cars. No specific size restrictions.</p>
+
+                            <p><strong>How to Park</strong><br>
+                            Please park <strong>within the marked lines</strong> in the parking lot.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrival Tips Section -->
+            <div class="section">
+                <h2 class="section-title">Arrival Tips</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">Entrance Description</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>The entrance is the <strong>key box</strong> installed on the <strong>dark gray wall</strong> at the front of the building.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">If You Get Lost</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>There are no staff around the building. If you get lost, please contact chat support with the following information:</p>
+                            <p style="margin-top: 12px;">
+                                <strong>・Screenshot of your current location</strong><br>
+                                <strong>・Photos of the surroundings</strong><br>
+                                <strong>・Google Maps link</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section">
+                <h2 class="section-title">Support</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">How to Contact</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>Chat Support</strong><br>
+                            Please use chat support via the official LINE account. For smooth assistance, we appreciate your inquiries via chat.</p>
+
+                            <p style="margin-top: 12px;"><strong>Phone</strong><br>
+                            Except in emergencies, phone support is generally not provided.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chinese Content -->
+        <div class="language-content" data-lang="zh">
+            <h1 class="page-title">交通与停车</h1>
+
+            <!-- Quick Info -->
+            <div class="quick-info">
+                <h2>快速信息</h2>
+                
+                <div class="info-block">
+                    <div class="info-label">地址</div>
+                    <div class="info-content">
+                        〒410-3302 静冈县伊豆市土肥2789<br>
+                        <strong>AlimSTAY IZU</strong>
+                    </div>
+                    <button class="copy-button" onclick="copyToClipboard('〒410-3302 静冈县伊豆市土肥2789 AlimSTAY IZU')">复制地址</button>
+                    <a href="https://maps.app.goo.gl/PLACEHOLDER_URL" target="_blank" class="map-button">在Google地图中打开</a>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">地标</div>
+                    <div class="info-content">
+                        建筑外观为<strong>现代深灰色设计</strong>。毗邻的<strong>松原公园</strong>是重要地标。
+                    </div>
+                </div>
+
+                <div class="info-block">
+                    <div class="info-label">入住</div>
+                    <div class="info-content">
+                        请在<strong>当天下午3:00之前</strong>，通过发送到您OTA消息框中的"入住通知"完成入住手续。
+                    </div>
+                    <a href="faq.html" class="map-button">前往FAQ页面</a>
+                </div>
+            </div>
+
+            <!-- Getting Here Section -->
+            <div class="section">
+                <h2 class="section-title">如何到达</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">自驾</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>导航注意事项</strong><br>
+                            请搜索地址（静冈县伊豆市土肥2789）或电话号码（0558-98-XXXX）。搜索<strong>前物业名称"Wakudaya"</strong>可能会导致定位不准确。</p>
+
+                            <p><strong>高速公路</strong><br>
+                            从新东名高速公路"长泉沼津IC"或东名高速公路"沼津IC"经伊豆纵贯道，沿国道136号线行驶约90分钟。</p>
+
+                            <p><strong>所需时间</strong><br>
+                            从东京方向出发约3小时30分钟（不含休息）。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">公共交通</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>最近车站</strong><br>
+                            伊豆箱根铁道"修善寺站"</p>
+
+                            <p><strong>巴士</strong><br>
+                            从修善寺站乘坐东海巴士开往"松崎"方向（约50分钟）。</p>
+
+                            <p><strong>下车</strong><br>
+                            在<strong>"土肥金山"</strong>巴士站下车。酒店距离巴士站<strong>步行约3分钟</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">出租车</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>给出租车司机看的文字</strong></p>
+                            <p style="background: #f5f5f5; padding: 12px; border-radius: 4px; font-family: monospace; font-size: 14px;">
+                                "请带我去静冈县伊豆市土肥2789的<strong>AlimSTAY IZU</strong>。这是以前的旅馆<strong>Wakudaya</strong>的旧址。"
+                            </p>
+                            <button class="copy-button" onclick="copyToClipboard('请带我去静冈县伊豆市土肥2789的AlimSTAY IZU。这是以前的旅馆Wakudaya的旧址。')">复制文字</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Parking Guide Section -->
+            <div class="section">
+                <h2 class="section-title">停车指南</h2>
+
+                <div class="accordion-item active">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">松原公园停车场（公共）</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>停车信息</strong><br>
+                            我们<strong>没有专用停车场</strong>。请使用附近的<strong>松原公园停车场（公共）</strong>。</p>
+
+                            <p><strong>收费结构</strong></p>
+                            <table class="info-table">
+                                <tr>
+                                    <td>1天（从0:00计算）</td>
+                                    <td><strong>1,200日元</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>2小时内免费进出</td>
+                                    <td>免费</td>
+                                </tr>
+                                <tr>
+                                    <td>22:01以后停车</td>
+                                    <td>次日加收1,200日元</td>
+                                </tr>
+                                <tr>
+                                    <td>21:59之前停车</td>
+                                    <td>可能收取2天费用2,400日元</td>
+                                </tr>
+                            </table>
+
+                            <p><strong>停车位置</strong><br>
+                            位于酒店正门<strong>约50米处</strong>，<strong>隔着国道136号线</strong>。</p>
+
+                            <p><strong>容量/尺寸限制</strong><br>
+                            约50辆标准车。没有特定的尺寸限制。</p>
+
+                            <p><strong>如何停车</strong><br>
+                            请<strong>沿着停车位划线</strong>停车。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Arrival Tips Section -->
+            <div class="section">
+                <h2 class="section-title">抵达提示</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">入口说明</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>入口是安装在建筑物正面<strong>深灰色墙壁</strong>上的<strong>钥匙箱</strong>。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">迷路时</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p>建筑物周围没有工作人员。如果您迷路了，请附上以下信息联系聊天支持：</p>
+                            <p style="margin-top: 12px;">
+                                <strong>・您当前位置的屏幕截图</strong><br>
+                                <strong>・周围环境的照片</strong><br>
+                                <strong>・Google地图链接</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section">
+                <h2 class="section-title">支持</h2>
+
+                <div class="accordion-item">
+                    <button class="accordion-header" onclick="toggleAccordion(this)">联系方式</button>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p><strong>聊天支持</strong><br>
+                            请使用官方LINE账户的聊天支持。为了获得顺利的协助，我们感谢您通过聊天进行咨询。</p>
+
+                            <p style="margin-top: 12px;"><strong>电话</strong><br>
+                            除紧急情况外，原则上不提供电话支持。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            item.classList.toggle('active');
+        }
+
+        function switchLanguage(lang) {
+            // Hide all language contents
+            document.querySelectorAll('.language-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Show selected language
+            document.querySelector(`.language-content[data-lang="${lang}"]`).classList.add('active');
+
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('コピーしました！');
+            }).catch(err => {
+                console.error('コピーに失敗しました:', err);
+            });
+        }
+    </script>
+</body>
+</html>
